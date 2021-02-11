@@ -10,7 +10,7 @@ public class Event {
 
     private String name;
 
-    private int LimitOfEnrollment;
+    private int limitOfEnrollment;
 
     private LocalDateTime startDateTime;
 
