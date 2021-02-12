@@ -1,9 +1,6 @@
 package co.wordbe.springwebmvc.springmvc;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MvcController {
@@ -21,5 +18,20 @@ public class MvcController {
     @GetMapping("/mvc")
     public String mvc(@RequestParam("id") Person person) {
         return "mvc, " + person.getId();
+    }
+
+    @GetMapping("/message")
+    public String message(@RequestBody String body) {
+        return body;
+    }
+
+    @GetMapping("/jsonMessage")
+    public Person jsonMessage(@RequestBody Person person) {
+        return person;
+    }
+
+    @GetMapping("/xmlMessage")
+    public Person xmlMessage(@RequestBody Person person) {
+        return person;
     }
 }
