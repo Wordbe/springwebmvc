@@ -14,12 +14,12 @@ public class MangoServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        System.out.println("mango servlet init");
+//        System.out.println("mango servlet init");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("mango servlet doGet");
+//        System.out.println("mango servlet doGet");
 
         ApplicationContext context = (ApplicationContext) getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         MangoService mangoService = context.getBean(MangoService.class);
@@ -33,6 +33,6 @@ public class MangoServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        System.out.println("mango servlet destroy");
+//        System.out.println("mango servlet destroy");
     }
 }

@@ -9,12 +9,12 @@ public class AppleListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("Context Initialized (Apple)");
+//        System.out.println("Context Initialized (Apple)");
         sce.getServletContext().setAttribute("name", "apple");
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Context Destroyed (Apple)");
+//        System.out.println("Context Destroyed (Apple)");
     }
 }
