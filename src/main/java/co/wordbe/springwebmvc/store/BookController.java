@@ -33,6 +33,4 @@ public class BookController {
     public String deleteBook(@PathVariable int id) {
         return "delete book " + id;
     }
-
-
 }
