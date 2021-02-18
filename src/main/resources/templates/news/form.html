@@ -6,6 +6,10 @@
 </head>
 <body>
 <form action="#" th:action="@{/news}" method="post" th:object="${news}">
+
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Incorrect date</p>
+    <p th:if="${#fields.hasErrors('limit')}" th:errors="*{limit}">Incorrect date</p>
+
     <input type="text" title="title" th:field="*{title}" />
     <input type="text" title="limit" th:field="*{limit}" />
     <input type="submit" value="생성" />

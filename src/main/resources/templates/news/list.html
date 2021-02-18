@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>News List</title>
+</head>
+<body>
+<a th:href="@{/news/form}">Create News</a>
+<div th:unless="${#lists.isEmpty(newsList)}">
+    <ul th:each="news: ${newsList}">
+        <p th:text="${news.Title}">news title</p>
+        <p th:text="${news.Limit}">news limit</p>
+    </ul>
+</div>
+</body>
+</html>
