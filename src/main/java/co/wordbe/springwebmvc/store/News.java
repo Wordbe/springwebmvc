@@ -7,4 +7,5 @@ import lombok.Setter;
 public class News {
     private Integer id;
     private String title;
+    private Integer limit;
 }

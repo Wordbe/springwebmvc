@@ -6,9 +6,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest
 class NewsControllerTest {
@@ -26,4 +26,23 @@ class NewsControllerTest {
                 ;
     }
 
+    @Test
+    public void postNews() throws Exception {
+        mockMvc.perform(post("/news")
+                            .param("title", "무제")
+                            .param("limit", "20"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("title").value("무제"))
+        ;
+    }
+
+    @Test
+    public void newsForm() throws Exception {
+        mockMvc.perform(get("/news/form"))
+                .andDo(print())
+                .andExpect(view().name("/news/form"))
+                .andExpect(model().attributeExists("news"))
+                ;
+    }
 }

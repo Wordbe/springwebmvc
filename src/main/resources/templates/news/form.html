@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+<form action="#" th:action="@{/news}" method="post" th:object="${news}">
+    <input type="text" title="title" th:field="*{title}" />
+    <input type="text" title="limit" th:field="*{limit}" />
+    <input type="submit" value="생성" />
+</form>
+</body>
+</html>
