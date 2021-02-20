@@ -4,13 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,18 +41,24 @@ public class NewsController {
     @PostMapping("/news/form/limit")
     public String newsFormLimitSubmit(@Validated @ModelAttribute News news,
                                       BindingResult bindingResult,
-                                      SessionStatus sessionStatus) {
+                                      RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
             return "/news/form-limit";
         }
-//        sessionStatus.setComplete();
+        attributes.addFlashAttribute("myRedirectedNews", news);
+
         return "redirect:/news/list";
     }
 
     @GetMapping("/news/list")
-    public String getNews(@ModelAttribute News news, Model model) {
+    public String getNews(Model model,
+                          @SessionAttribute LocalDateTime visitTime) {
+        System.out.println("visitTime: " + visitTime);
+
+        News myRedirectedNews = (News) model.asMap().get("myRedirectedNews");
+
         List<News> newsList = new ArrayList<>();
-        newsList.add(news);
+        newsList.add(myRedirectedNews);
 
         model.addAttribute(newsList);
         return "/news/list";

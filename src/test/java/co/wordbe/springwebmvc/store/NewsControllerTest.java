@@ -1,5 +1,6 @@
 package co.wordbe.springwebmvc.store;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -8,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.notNullValue;
@@ -56,5 +58,20 @@ class NewsControllerTest {
                 .andReturn().getRequest();
         Object news = request.getSession().getAttribute("news");
         System.out.println(news);
+    }
+
+    @Test
+    public void getNewsFlashAttribute() throws Exception {
+        News news = new News();
+        news.setTitle("Wordtory");
+        news.setLimit(1000);
+
+        mockMvc.perform(get("/news/list")
+                    .sessionAttr("visitTime", LocalDateTime.now())
+                    .flashAttr("myRedirectedNews", news))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(xpath("//p").nodeCount(2))
+                ;
     }
 }
