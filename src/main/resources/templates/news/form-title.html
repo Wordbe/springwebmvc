@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/news/form/title}" method="post" th:object="${news}">
+
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Incorrect date</p>
+
+    Title: <input type="text" title="title" th:field="*{title}" />
+    <input type="submit" value="생성" />
+</form>
+</body>
+</html>
