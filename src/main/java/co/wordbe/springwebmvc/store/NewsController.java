@@ -1,11 +1,9 @@
 package co.wordbe.springwebmvc.store;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,29 +14,6 @@ import java.util.List;
 @Controller
 @SessionAttributes("news")
 public class NewsController {
-
-    @ExceptionHandler
-    public String newsErrorHandler(NewsException newsException, Model model) {
-       model.addAttribute("message", "news error");
-       return "/news/error";
-    }
-
-    // ResponseEntity 사용하는 것을 추천 (REST API 에서 응답코드와 응답본문 명시)
-//    @ExceptionHandler
-//    public ResponseEntity<String> newsResponseEntityErrorHandler(NewsException newsException) {
-//        return ResponseEntity.badRequest().body("error message example");
-//    }
-
-    @GetMapping("/news/error-test")
-    public String errorTest() {
-        throw new NewsException();
-    }
-
-    @InitBinder
-    public void initNewsBinder(WebDataBinder webDataBinder) {
-        webDataBinder.setDisallowedFields("id");
-        webDataBinder.addValidators(new NewsValidator());
-    }
 
     @GetMapping("/news/form/title")
     public String newsFormTitle(Model model) {
@@ -87,10 +62,6 @@ public class NewsController {
         return "/news/list";
     }
 
-
-
-
-
     @PostMapping("/news")
     public String news(@Validated @ModelAttribute News news,
                        BindingResult bindingResult,
@@ -104,5 +75,10 @@ public class NewsController {
         model.addAttribute("newsList", newsList);
 
         return "redirect:/news/list";
+    }
+
+    @GetMapping("/news/error-test")
+    public String errorTest() {
+        throw new NewsException();
     }
 }
